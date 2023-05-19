@@ -1,3 +1,6 @@
+"""
+Encounter Difficulty Calculation module.
+"""
 from enum import Enum, unique, auto
 from functools import reduce
 from typing import List
@@ -5,28 +8,31 @@ from typing import List
 
 @unique
 class Difficulty(Enum):
-    easy = auto()
-    medium = auto()
-    hard = auto()
-    deadly = auto()
+    """Representation of the encounter difficulty."""
+    EASY = auto()
+    MEDIUM = auto()
+    HARD = auto()
+    DEADLY = auto()
 
     def __str__(self):
         return self.name.upper()
 
 
-class CR:
+class CR:  # pylint: disable=too-few-public-methods
+    """Representation of the Challenge Rating."""
     label: str
     xp: int
 
-    def __init__(self, label, xp):
+    def __init__(self, label, xp):  # pylint: disable=invalid-name
         self.label = label
-        self.xp = xp
+        self.xp = xp  # pylint: disable=invalid-name
 
     def __str__(self):
         return f"CR-{self.label}"
 
 
 class XpThresholds:
+    """Object used to hold the Experience Point Thresholds for a character level."""
     easy: int
     medium: int
     hard: int
@@ -48,12 +54,11 @@ class XpThresholds:
 
     def __eq__(self, other):
         if isinstance(other, XpThresholds):
-            return self.easy == other.easy \
+            return self.easy == other.easy\
                 and self.medium == other.medium \
                 and self.hard == other.hard \
                 and self.deadly == other.deadly
-        else:
-            return False
+        return False
 
     def __str__(self):
         return f"XpThresholds({self.easy}, {self.medium}, {self.hard}, {self.deadly})"
@@ -61,15 +66,15 @@ class XpThresholds:
     def __repr__(self):
         return self.__str__()
 
-    def resolve(self, xp: int) -> Difficulty:
+    def resolve(self, xp: int) -> Difficulty:  # pylint: disable=invalid-name
+        """Resolves the difficulty based on these thresholds against the given XP."""
         if xp <= self.easy:
-            return Difficulty.easy
+            return Difficulty.EASY
         elif self.easy < xp <= self.medium:
-            return Difficulty.medium
+            return Difficulty.MEDIUM
         elif self.medium < xp <= self.hard:
-            return Difficulty.hard
-        else:
-            return Difficulty.deadly
+            return Difficulty.HARD
+        return Difficulty.DEADLY
 
 
 _crs: List[CR] = [
@@ -133,8 +138,8 @@ _thresholds = [
 
 
 def calculate_difficulty(party: str, monsters: str) -> Difficulty:
-    """Calculates the difficulty rating for the given party (levels) against the specified group of monsters
-    (number@CR)."""
+    """Calculates the difficulty rating for the given party (levels) against the specified group of
+    monsters (number@CR)."""
     # calculate the threshold for party levels
     party_levels = [int(lvl) for lvl in party.split(',')]
     party_size = len(party_levels)

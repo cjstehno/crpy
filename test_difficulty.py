@@ -64,15 +64,15 @@ def test_calculate_monster_xp(party_size: int, monsters: str, expected_xp: int):
 @pytest.mark.parametrize(
     "thresholds, monsters_xp, expected_difficulty",
     [
-        (XpThresholds(25, 50, 75, 100), 10, Difficulty.easy),
-        (XpThresholds(25, 50, 75, 100), 30, Difficulty.medium),
-        (XpThresholds(25, 50, 75, 100), 60, Difficulty.hard),
-        (XpThresholds(25, 50, 75, 100), 79, Difficulty.deadly),
-        (XpThresholds(800, 1600, 2400, 3600), 125, Difficulty.easy),
-        (XpThresholds(800, 1600, 2400, 3600), 1000, Difficulty.medium),
-        (XpThresholds(800, 1600, 2400, 3600), 2400, Difficulty.hard),
-        (XpThresholds(800, 1600, 2400, 3600), 3000, Difficulty.deadly),
-        (XpThresholds(800, 1600, 2400, 3600), 5000, Difficulty.deadly),
+        (XpThresholds(25, 50, 75, 100), 10, Difficulty.EASY),
+        (XpThresholds(25, 50, 75, 100), 30, Difficulty.MEDIUM),
+        (XpThresholds(25, 50, 75, 100), 60, Difficulty.HARD),
+        (XpThresholds(25, 50, 75, 100), 79, Difficulty.DEADLY),
+        (XpThresholds(800, 1600, 2400, 3600), 125, Difficulty.EASY),
+        (XpThresholds(800, 1600, 2400, 3600), 1000, Difficulty.MEDIUM),
+        (XpThresholds(800, 1600, 2400, 3600), 2400, Difficulty.HARD),
+        (XpThresholds(800, 1600, 2400, 3600), 3000, Difficulty.DEADLY),
+        (XpThresholds(800, 1600, 2400, 3600), 5000, Difficulty.DEADLY),
     ]
 )
 def test_resolve_difficulty(thresholds: XpThresholds, monsters_xp: int, expected_difficulty: Difficulty):
@@ -82,10 +82,10 @@ def test_resolve_difficulty(thresholds: XpThresholds, monsters_xp: int, expected
 @pytest.mark.parametrize(
     "party, monsters, expected_difficulty",
     [
-        ("1,1,1,1", "1@1", Difficulty.medium),
-        ("1,1,1,1", "3@1", Difficulty.deadly),
-        ("1,1,1,1,2,2,2", "7@1", Difficulty.deadly),
-        ("1,1,1,1,2,2,2", "7@1/8", Difficulty.medium),
+        ("1,1,1,1", "1@1", Difficulty.MEDIUM),
+        ("1,1,1,1", "3@1", Difficulty.DEADLY),
+        ("1,1,1,1,2,2,2", "7@1", Difficulty.DEADLY),
+        ("1,1,1,1,2,2,2", "7@1/8", Difficulty.MEDIUM),
     ]
 )
 def test_calculate_difficulty(party: str, monsters: str, expected_difficulty: Difficulty):
