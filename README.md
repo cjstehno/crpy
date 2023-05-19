@@ -1,4 +1,4 @@
-# CpPy
+# CrPy
 
 A simple command line encounter difficulty calculator written in python.
 
@@ -26,3 +26,11 @@ MEDIUM
 
 Denoting that for a 4-PC party of levels 1 & 2, against two CR-1/2 monsters, the encounter would be of 
 MEDIUM difficulty.
+
+## Build Executable
+
+```bash
+pyinstaller -F -n crpy main.py
+```
+
+Which will generate a `dist/crpy` file which may be executed directly as a stand-alone application.
